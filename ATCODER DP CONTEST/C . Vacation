@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+#define int long long int
+
+void solve(){
+    int n;
+    std::cin >> n;
+
+    std::vector <int> dp(3);
+
+    for(int i = 1; i <= n; i++) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        std::vector <int> tmp(3);
+        tmp[0] = a + std::max(dp[1], dp[2]);
+        tmp[1] = b + std::max(dp[0], dp[2]);
+        tmp[2] = c + std::max(dp[0], dp[1]);
+        std::swap(dp, tmp);
+    }
+
+    std::cout << std::max({dp[0], dp[1], dp[2]});
+}
+     
+signed main() {
+
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif // ONLINE_JUDGE
+
+    int t = 1;
+    //std::cin >> t;
+    while(t--){
+        solve();
+    }
+}
