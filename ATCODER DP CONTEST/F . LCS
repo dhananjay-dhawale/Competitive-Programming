@@ -1,1 +1,61 @@
+#include <bits/stdc++.h>
+#define int long long int
 
+void solve(){
+    std::string s, t;
+    std::cin >> s >> t;
+    int n = s.size(), m = t.size();
+
+    int dp[n + 1][m + 1];
+    memset(dp, 0, sizeof(dp));
+
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            if(s[i - 1] == t[j - 1]) {
+                dp[i][j] = 1 + dp[i-1][j-1];
+            }
+            else {
+                dp[i][j] = std::max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+    }
+
+    int x = n, y = m;
+
+    std::string ans = "";
+    
+    while(x && y) {
+        if(s[x - 1] == t[y - 1]) {
+            ans += s[x - 1];
+            x -= 1;
+            y -= 1;
+        }
+        else if(dp[x-1][y] > dp[x][y-1]) {
+            x -= 1;
+        }
+        else {
+            y -= 1;
+        }
+    }
+
+    std::reverse(ans.begin(), ans.end());
+
+    std::cout << ans ;
+}
+     
+signed main() {
+
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif // ONLINE_JUDGE
+
+    int t = 1;
+    //std::cin >> t;
+    while(t--){
+        solve();
+    }
+}
